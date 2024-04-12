@@ -1,0 +1,68 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: zoekt-webserver-0
+  namespace: sourcegraph
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: zoekt-webserver-0
+  template:
+    metadata:
+      labels:
+        app: zoekt-webserver-0
+    spec:
+      containers:
+        - name: zoekt-webserver-0
+          image: sourcegraph/zoekt-webserver:latest
+          resources:
+            limits:
+              cpu: "1"
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: zoekt-indexserver-0
+  namespace: sourcegraph
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: zoekt-indexserver-0
+  template:
+    metadata:
+      labels:
+        app: zoekt-indexserver-0
+    spec:
+      containers:
+        - name: zoekt-indexserver-0
+          image: sourcegraph/zoekt-indexserver:latest
+          resources:
+            limits:
+              cpu: "1"
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: caddy
+  namespace: sourcegraph
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: caddy
+  template:
+    metadata:
+      labels:
+        app: caddy
+    spec:
+      containers:
+        - name: caddy
+          image: caddy:latest
+          resources:
+            limits:
+              cpu: "1"
+          ports:
+            - containerPort: 80
+
