@@ -73,11 +73,3 @@ echo wait for webserver deployment to be running
 until kubectl get all -n ${PRODUCT_NAME}|grep ^pod/zoekt-webserver|grep 1/1; do
   sleep 5
 done
-
-#echo create port-forward to access ${PRODUCT_NAME} on port 8080
-#if ! nc -z -w1 0.0.0.0 8080; then
-#  # Port 8080 is not already forwarded, so execute the port-forwarding command
-#  kubectl port-forward service/caddy-service -n ${PRODUCT_NAME} --address 0.0.0.0 8080:80 &
-#else
-#  echo "Port 8080 is already forwarded."
-#fi
