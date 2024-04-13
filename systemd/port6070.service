@@ -1,0 +1,15 @@
+[Unit]
+Description=Kubectl Port Forward 6070
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+User=vagrant
+Group=vagrant
+Type=simple
+ExecStart=/bin/bash -c "kubectl port-forward deployment.apps/zoekt-webserver-0 -n sourcegraph --address 192.168.0.12 6070:6070"
+Restart=always
+RestartSec=5s
+
+[Install]
+WantedBy=multi-user.target
